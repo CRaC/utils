@@ -12,7 +12,11 @@ END {
 		}
 		mean[m] /= n - 2 * m
 	}
-	fmt = "%.06f"
-	printf "min "fmt" max "fmt" avg "fmt" mean(1) "fmt"\n", t[1], t[n], mean[0], mean[1]
-}
 
+	stat["min"]  = t[1]
+	stat["max"]  = t[n]
+	stat["avg"]  = mean[0]
+	stat["mean"] = mean[1]
+	for (i in stat)
+		printf "%6s %.06f\n", i, stat[i]
+}
