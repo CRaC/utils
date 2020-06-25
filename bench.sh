@@ -2,7 +2,7 @@
 
 REQS=(200 1000 2000 5000 10000 20000 40000 60000 80000 100000)
 
-URL=$1
+SIEGE_ARGS=("$@")
 
 vtable() {
 	awk -v "REQS=${REQS[*]}" '
@@ -18,5 +18,5 @@ vtable() {
 
 ITERS=$(printf "%s\n" ${REQS[@]} | awk '{ print $1 - p; p = $1 }')
 for i in $ITERS; do 
-	siege -c 1 -r $i -b $URL 2>&1 >/dev/null 
+	siege -c 1 -r $i -b "${SIEGE_ARGS[@]}" 2>&1 >/dev/null
 done | vtable
