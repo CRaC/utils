@@ -8,3 +8,4 @@ while [ ! $e ]; do
 	e=$(head $exitcode 2>/dev/null)
 done
 echo $e
+rm $exitcode
