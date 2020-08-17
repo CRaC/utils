@@ -84,7 +84,7 @@ collect() {
 			-e exitcode \
 			-l $e/log.c.$i \
 			$JDK/bin/java \
-			  -Zcheckpoint:cr \
+			  -XX:CRaCCheckpointTo=cr \
 			  -XX:+UnlockDiagnosticVMOptions \
 			  -XX:+CRTraceStartupTime \
 			  -Djdk.crac.trace-startup-time=true \
@@ -100,7 +100,7 @@ collect() {
 				P=$($B/start-bg.sh \
 				  -s "restore-finish" \
 				  -l $e/log.r.$i.$j \
-				  bash -c "$JDK/lib/javatime ; exec $JDK/bin/java -Zrestore:cr")
+				  bash -c "$JDK/lib/javatime ; exec $JDK/bin/java -XX:CRaCRestoreFrom=cr")
 
 				bench | tee /dev/stderr > $e/r.$i.$j
 				kill $P
