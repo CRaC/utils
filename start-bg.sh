@@ -1,11 +1,14 @@
 #!/bin/bash
 
-while getopts e:s:l: name; do
+tries=10
+
+while getopts e:s:l:t: name; do
 	case $name in
 		e) exitcode="$OPTARG" ;;
 		s) started="$OPTARG" ;;
 		l) log="$OPTARG" ;;
-		?) printf "Usage: %s: [−s started-pattern] [-e exit-code-file] cmd\n" $0
+		t) tries="$OPTARG" ;;
+		?) printf "Usage: %s: [−s started-pattern] [-e exit-code-file] [ -t timeout-sec ] CMD\n" $0
 		   exit 2;;
 	esac
 done
@@ -37,10 +40,13 @@ echo > $log
 ) | tee $log >&2 &
 
 if [ z${started+set} = zset ]; then
-	while :; do
+	while [ $tries -gt 0 ]; do
 		grep -q "$started" $log && break
 		sleep 1
+		tries=$(($tries - 1))
 	done
 fi
+
+grep -q "$started" $log || exit 1
 
 cat $pidfile
