@@ -22,7 +22,7 @@ EXAMPLES=(
 declare -A JAR=(
 	[spring-boot]=target/spring-boot-0.0.1-SNAPSHOT.jar
 	[micronaut]=build/libs/example-0.1-all.jar
-	[quarkus]=target/example-quarkus-1.0-SNAPSHOT-runner.jar
+	[quarkus]=target/quarkus-app/quarkus-run.jar
 	[xml-transform]=target/spring-boot-0.0.1-SNAPSHOT.jar
 )
 
